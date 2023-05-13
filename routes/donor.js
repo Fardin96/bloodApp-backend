@@ -10,8 +10,40 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-  const donorName = req.body.donorName;
-  const newDonor = new Donor({ donorName });
+  const name = req.body.name;
+  const email = req.body.email;
+  // const password = req.body.password;
+  // const bloodGroup = req.body.bloodGroup;
+  // const contact = req.body.contact;
+  // const address = req.body.address;
+  // const dob = req.body.dob;
+  // const recency = req.body.recency;
+  // const nid = req.body.nid;
+
+  // postman
+  // {
+  //   "name": "farabi",
+  //   "email": "fardinshuvro96@gmail.com",
+  //   "password": "1111",
+  //   "bloodGroup": "O+",
+  //   "contact": "0987655667",
+  //   "address": "badda, dhaka",
+  //   "dob": "12-22-23",
+  //   "recency":"12-22-23",
+  //   "nid": "32423492837408327"
+  // }
+
+  const newDonor = new Donor({
+    name,
+    email,
+    // password,
+    // bloodGroup,
+    // contact,
+    // address,
+    // dob,
+    // recency,
+    // nid,
+  });
 
   newDonor
     .save()
