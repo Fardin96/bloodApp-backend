@@ -3,6 +3,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
+// const donorRouter = require("./routes/donor");
+// import { donorRouter } from "./routes/donor.js";
+import donorRouter from "./routes/donor.js";
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5001;
@@ -22,6 +26,9 @@ connection.on("error", () => {
   console.log("Error connecting to database!");
 });
 
+// defining routes using models
+app.use("/donor", donorRouter);
+
 app.listen(port, () => {
-  console.log("Listening on port :", port);
+  console.log("Listening on port: ", port);
 });
