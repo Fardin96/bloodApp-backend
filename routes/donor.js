@@ -1,5 +1,7 @@
-import express from "express";
-import Donor from "../model/donor.model.js";
+// import express from "express";
+const express = require("express");
+// import Donor from "../model/donor.model.js";
+const Donor = require("../model/donor.model.js");
 
 const router = express.Router();
 
@@ -19,5 +21,5 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error adding new donors : ", err));
 });
 
-export default router;
-// module.exports = router;
+// export default router;
+module.exports = router;

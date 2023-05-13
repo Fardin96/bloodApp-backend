@@ -1,13 +1,21 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import * as dotenv from "dotenv";
+// for using ES6 modules
+// "type": "module",
 
-// const donorRouter = require("./routes/donor");
-// import { donorRouter } from "./routes/donor.js";
-import donorRouter from "./routes/donor.js";
+// import express from "express";
+const express = require("express");
+// import cors from "cors";
+const cors = require("cors");
+// import mongoose from "mongoose";
+const mongoose = require("mongoose");
+// import * as dotenv from "dotenv";
 
-dotenv.config();
+// import donorRouter from "./routes/donor.js";
+const donorRouter = require("./routes/donor");
+
+// dotenv.config();
+require("dotenv").config();
+
+// const app = express();
 const app = express();
 const port = process.env.PORT || 5001;
 const uri = process.env.DB_URI;
