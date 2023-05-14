@@ -5,14 +5,6 @@ const Donor = require("../model/donor.model.js");
 
 const router = express.Router();
 
-router.route("/").get((req, res) => {
-  Donor.find()
-    .then((donors) => res.json(donors))
-    .catch((err) => res.status(400).json("Error finiding donors : ", err));
-
-  // res.send("Hellowww, world!");
-});
-
 // postman
 // {
 //   "name": "farabi",
@@ -56,6 +48,55 @@ router.route("/add").post((req, res) => {
     .save()
     .then(() => res.json("New donor added!"))
     .catch((err) => res.status(400).json("Error adding new donors : ", err));
+});
+
+router.route("/").get((req, res) => {
+  Donor.find()
+    .then((donors) => res.json(donors))
+    .catch((err) => res.status(400).json("Error finiding donors : ", err));
+
+  // res.send("Hellowww, world!");
+});
+
+router.route("/:id").get((req, res) => {
+  Donor.findById(req.params.id)
+    .then((donor) => res.json(donor))
+    .catch((err) => {
+      res.status(400).json("Error finding individual donor: ", err);
+    });
+});
+
+router.route("/update/:id").post((req, res) => {
+  Donor.findById(req.params.id)
+    .then((donor) => {
+      donor.name = req.body.name;
+      donor.email = req.body.email;
+      donor.password = req.body.password;
+      donor.bloodGroup = req.body.bloodGroup;
+      donor.contact = Number(req.body.contact);
+      donor.address = req.body.address;
+      donor.dob = Date.parse(req.body.dob);
+      donor.recency = Date.parse(req.body.recency);
+      donor.nid = req.body.nid;
+
+      donor
+        .save()
+        .then(() => res.send("Donor info updated!"))
+        .catch((err) =>
+          res.status(400).json("Error updating donor info: ", err)
+        );
+    })
+    .catch((err) => {
+      res.status(400).json("Error updating donor info: ", err);
+    });
+});
+
+router.route("/:id").delete((req, res) => {
+  Donor.findByIdAndDelete(req.params.id)
+    .then(() => res.send("Donor removed!"))
+    .catch((err) => {
+      res.status(400).json("Error removing donor: ", err);
+    });
 });
 
 // export default router;
