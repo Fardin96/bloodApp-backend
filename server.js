@@ -23,6 +23,7 @@ const uri = process.env.DB_URI;
 const connection = mongoose.connection;
 
 // app.use(cors);
+// app.use(cors);
 app.use(express.json());
 
 mongoose.connect(uri, { useNewUrlParser: true });
