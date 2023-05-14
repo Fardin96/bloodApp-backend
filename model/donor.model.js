@@ -1,14 +1,49 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const donorSchema = new Schema(
   {
-    donorName: {
+    name: {
       type: String,
       required: true,
       unique: true,
       minLength: 3,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    bloodGroup: {
+      type: String,
+      required: true,
+      minLength: 2,
+    },
+    contact: {
+      type: Number,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: false,
+    },
+    dob: {
+      type: Date,
+      required: false,
+    },
+    recency: {
+      type: Date,
+      required: false,
+    },
+    nid: {
+      type: String,
+      required: false,
     },
   },
   {
@@ -18,4 +53,5 @@ const donorSchema = new Schema(
 
 const Donor = mongoose.model("Donor", donorSchema);
 
-export default Donor;
+// export default Donor;
+module.exports = Donor;

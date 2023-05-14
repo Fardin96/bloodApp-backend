@@ -5,7 +5,6 @@
   "repository": "git@github.com-farabi:Fardin96/bloodApp-backend.git",
   "author": "Fardin96 <fardinshuvro96@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "serve": "./node_modules/nodemon/bin/nodemon.js server.js"
   },
