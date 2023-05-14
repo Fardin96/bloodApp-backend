@@ -28,7 +28,7 @@ app.use(express.json());
 mongoose.connect(uri, { useNewUrlParser: true });
 
 connection.once("open", () => {
-  console.log("Database connection established successfully!!!");
+  console.log("Database connection established successfully!!");
 });
 
 connection.on("error", () => {
