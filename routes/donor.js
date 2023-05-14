@@ -13,41 +13,44 @@ router.route("/").get((req, res) => {
   // res.send("Hellowww, world!");
 });
 
+// postman
+// {
+//   "name": "farabi",
+//   "email": "fardinshuvro96@gmail.com",
+//   "password": "1111",
+//   "bloodGroup": "O+",
+//   "contact": "0987655667",
+//   "address": "badda, dhaka",
+//   "dob": "12-22-23",
+//   "recency":"12-22-23",
+//   "nid": "32423492837408327"
+// }
+
 router.route("/add").post((req, res) => {
   const name = req.body.name;
   const email = req.body.email;
-  // const password = req.body.password;
-  // const bloodGroup = req.body.bloodGroup;
-  // const contact = req.body.contact;
-  // const address = req.body.address;
-  // const dob = req.body.dob;
-  // const recency = req.body.recency;
-  // const nid = req.body.nid;
-
-  // postman
-  // {
-  //   "name": "farabi",
-  //   "email": "fardinshuvro96@gmail.com",
-  //   "password": "1111",
-  //   "bloodGroup": "O+",
-  //   "contact": "0987655667",
-  //   "address": "badda, dhaka",
-  //   "dob": "12-22-23",
-  //   "recency":"12-22-23",
-  //   "nid": "32423492837408327"
-  // }
+  const password = req.body.password;
+  const bloodGroup = req.body.bloodGroup;
+  const contact = Number(req.body.contact);
+  const address = req.body.address;
+  const dob = Date.parse(req.body.dob);
+  const recency = Date.parse(req.body.recency);
+  const nid = req.body.nid;
 
   const newDonor = new Donor({
     name,
     email,
-    // password,
-    // bloodGroup,
-    // contact,
-    // address,
-    // dob,
-    // recency,
-    // nid,
+    password,
+    bloodGroup,
+    contact,
+    address,
+    dob,
+    recency,
+    nid,
   });
+
+  // console.log("Donor: ", newDonor);
+  // console.log("type of contact address: ", typeof newDonor.contact);
 
   newDonor
     .save()

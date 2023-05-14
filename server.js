@@ -23,13 +23,12 @@ const uri = process.env.DB_URI;
 const connection = mongoose.connection;
 
 // app.use(cors);
-// app.use(cors);
 app.use(express.json());
 
 mongoose.connect(uri, { useNewUrlParser: true });
 
 connection.once("open", () => {
-  console.log("Database connection established successfully!!");
+  console.log("Database connection established successfully!!!");
 });
 
 connection.on("error", () => {
