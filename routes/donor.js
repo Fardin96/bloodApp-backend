@@ -5,7 +5,10 @@ const router = express.Router();
 
 // import Donor from "../model/donor.model.js";
 const Donor = require("../model/donor.model.js");
-const { passwordHash } = require("../functions/securityFunctions.js");
+const {
+  passwordHash,
+  jwt_token,
+} = require("../functions/securityFunctions.js");
 
 // postman
 // {
@@ -43,13 +46,11 @@ router.route("/add").post(async (req, res) => {
     nid,
   });
 
-  // console.log("Donor: ", newDonor);
-  // console.log("password type: ", typeof password);
-  // console.log("password: ", password);
+  const token = jwt_token(newDonor._id);
 
   newDonor
     .save()
-    .then(() => res.json("New donor added!"))
+    .then(() => res.json(token))
     .catch((err) => res.status(400).json("Error adding new donors : ", err));
 });
 
