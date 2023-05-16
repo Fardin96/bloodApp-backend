@@ -1,9 +1,11 @@
 // import express from "express";
 const express = require("express");
+const router = express.Router();
+// const bcrypt = require("bcrypt");
+
 // import Donor from "../model/donor.model.js";
 const Donor = require("../model/donor.model.js");
-
-const router = express.Router();
+const { passwordHash } = require("../functions/securityFunctions.js");
 
 // postman
 // {
@@ -18,10 +20,10 @@ const router = express.Router();
 //   "nid": "32423492837408327"
 // }
 
-router.route("/add").post((req, res) => {
+router.route("/add").post(async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
-  const password = req.body.password;
+  const password = await passwordHash(req.body.password);
   const bloodGroup = req.body.bloodGroup;
   const contact = Number(req.body.contact);
   const address = req.body.address;
@@ -42,7 +44,8 @@ router.route("/add").post((req, res) => {
   });
 
   // console.log("Donor: ", newDonor);
-  // console.log("type of contact address: ", typeof newDonor.contact);
+  // console.log("password type: ", typeof password);
+  // console.log("password: ", password);
 
   newDonor
     .save()
