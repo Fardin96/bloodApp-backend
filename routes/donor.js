@@ -6,19 +6,19 @@ const Donor = require("../model/donor.model.js");
 const router = express.Router();
 
 // postman
-// {
-//   "name": "farabi",
-//   "email": "fardinshuvro96@gmail.com",
-//   "password": "1111",
-//   "bloodGroup": "O+",
-//   "contact": "0987655667",
-//   "address": "badda, dhaka",
-//   "dob": "12-22-23",
-//   "recency":"12-22-23",
-//   "nid": "32423492837408327"
-// }
+// // {
+// //   "name": "farabi",
+// //   "email": "fardinshuvro96@gmail.com",
+// //   "password": "1111",
+// //   "bloodGroup": "O+",
+// //   "contact": "0987655667",
+// //   "address": "badda, dhaka",
+// //   "dob": "12-22-23",
+// //   "recency":"12-22-23",
+// //   "nid": "32423492837408327"
+// // }
 
-router.route("/add").post((req, res) => {
+router.route("/add").post(async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
@@ -28,6 +28,8 @@ router.route("/add").post((req, res) => {
   const dob = Date.parse(req.body.dob);
   const recency = Date.parse(req.body.recency);
   const nid = req.body.nid;
+
+  // TODO: hash password, replace the hashed pass with the previous password.
 
   const newDonor = new Donor({
     name,
@@ -44,11 +46,13 @@ router.route("/add").post((req, res) => {
   // console.log("Donor: ", newDonor);
   // console.log("type of contact address: ", typeof newDonor.contact);
 
-  newDonor
+  await newDonor
     .save()
     .then(() => res.json("New donor added!"))
     .catch((err) => res.status(400).json("Error adding new donors : ", err));
 });
+
+// todo: create a login function using jwt
 
 router.route("/").get((req, res) => {
   Donor.find()

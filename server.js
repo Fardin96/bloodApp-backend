@@ -38,25 +38,6 @@ connection.on("error", () => {
 // defining routes using models
 app.use("/donor", donorRouter);
 
-// app.get("/", (req, res) => {
-//   // Donor.find()
-//   //   .then((donors) => res.json(donors))
-//   //   .catch((err) => res.status(400).json("Error finiding donors : ", err));
-//   console.log("how do i expect this to be called? ");
-//   res.send("Hellowww, world!");
-// });
-
-// app.post("/add", (req, res) => {
-//   // const donorName = req.body.donorName;
-//   // const newDonor = new Donor({ donorName });
-
-//   // newDonor
-//   //   .save()
-//   //   .then(() => res.json("New donor added!"))
-//   //   .catch((err) => res.status(400).json("Error adding new donors : ", err));
-//   res.send("Hellowww, world!");
-// });
-
 app.listen(port, () => {
   console.log("Listening on port: ", port);
 });
