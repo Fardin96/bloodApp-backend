@@ -48,10 +48,8 @@ router.route("/add").post(async (req, res) => {
 
   const token = jwt_token(newDonor._id);
 
-  newDonor
-    .save()
-    .then(() => res.json(token))
-    .catch((err) => res.status(400).json("Error adding new donors : ", err));
+  newDonor.save().then(() => res.json({ token: token }));
+  // .catch((err) => res.status(400).json("Error adding new donors : ", err));
 });
 
 router.route("/").get((req, res) => {
