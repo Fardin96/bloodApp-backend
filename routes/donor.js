@@ -1,24 +1,26 @@
 // import express from "express";
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 // const bcrypt = require("bcrypt");
 
 // import Donor from "../model/donor.model.js";
 const Donor = require("../model/donor.model.js");
-const { passwordHash } = require("../functions/securityFunctions.js");
+const {
+  passwordHash,
+  jwt_token,
+} = require("../functions/securityFunctions.js");
 
 // postman
-// {
-//   "name": "farabi",
-//   "email": "fardinshuvro96@gmail.com",
-//   "password": "1111",
-//   "bloodGroup": "O+",
-//   "contact": "0987655667",
-//   "address": "badda, dhaka",
-//   "dob": "12-22-23",
-//   "recency":"12-22-23",
-//   "nid": "32423492837408327"
-// }
+// // {
+// //   "name": "farabi",
+// //   "email": "fardinshuvro96@gmail.com",
+// //   "password": "1111",
+// //   "bloodGroup": "O+",
+// //   "contact": "0987655667",
+// //   "address": "badda, dhaka",
+// //   "dob": "12-22-23",
+// //   "recency":"12-22-23",
+// //   "nid": "32423492837408327"
+// // }
 
 router.route("/add").post(async (req, res) => {
   const name = req.body.name;
@@ -43,13 +45,11 @@ router.route("/add").post(async (req, res) => {
     nid,
   });
 
-  // console.log("Donor: ", newDonor);
-  // console.log("password type: ", typeof password);
-  // console.log("password: ", password);
+  const token = jwt_token(newDonor._id);
 
   newDonor
     .save()
-    .then(() => res.json("New donor added!"))
+    .then(() => res.json({ token: token }))
     .catch((err) => res.status(400).json("Error adding new donors : ", err));
 });
 
