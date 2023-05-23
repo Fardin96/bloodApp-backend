@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Donor = require("../model/donor.model");
 
 const passwordHash = async (password) => {
   const salt = await bcrypt.genSalt();
@@ -10,4 +11,7 @@ const jwt_token = (userId) => {
   return jwt.sign({ user: userId }, process.env.JWT_PRIVATE_KEY);
 };
 
-module.exports = { passwordHash: passwordHash, jwt_token: jwt_token };
+module.exports = {
+  passwordHash: passwordHash,
+  jwt_token: jwt_token,
+};

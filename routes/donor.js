@@ -8,6 +8,7 @@ const Donor = require("../model/donor.model.js");
 const {
   passwordHash,
   jwt_token,
+  duplicateUserName,
 } = require("../functions/securityFunctions.js");
 
 // postman
@@ -34,22 +35,39 @@ router.route("/add").post(async (req, res) => {
   const recency = Date.parse(req.body.recency);
   const nid = req.body.nid;
 
-  const newDonor = new Donor({
-    name,
-    email,
-    password,
-    bloodGroup,
-    contact,
-    address,
-    dob,
-    recency,
-    nid,
-  });
+  try {
+    const userNameExists = await Donor.findOne({ name });
+    const userEmailExists = await Donor.findOne({ email });
 
-  const token = jwt_token(newDonor._id);
+    // check duplicate user
+    if (!userNameExists || !userEmailExists) {
+      const newDonor = new Donor({
+        name,
+        email,
+        password,
+        bloodGroup,
+        contact,
+        address,
+        dob,
+        recency,
+        nid,
+      });
+      console.log("sending to server: ", newDonor);
 
-  newDonor.save().then(() => res.json({ token: token }));
-  // .catch((err) => res.status(400).json("Error adding new donors : ", err));
+      const token = jwt_token(newDonor._id);
+
+      await newDonor
+        .save()
+        .then(() => res.json({ token: token }))
+        .catch((error) =>
+          res.status(401).json("error adding new donors: ", error.message)
+        );
+    } else {
+      res.status(401).json("User already exists!");
+    }
+  } catch (error) {
+    console.log("error finding duplicate user!", error);
+  }
 });
 
 router.route("/").get((req, res) => {
