@@ -15,4 +15,4 @@ const jwt_token = (userId) => {
   return jwt.sign({ user: userId }, process.env.JWT_PRIVATE_KEY);
 };
 
-module.exports = { passwordHash: passwordHash };
+module.exports = { passwordHash: passwordHash, jwt_token: jwt_token };

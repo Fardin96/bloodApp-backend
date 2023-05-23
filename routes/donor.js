@@ -7,7 +7,6 @@ const Donor = require("../model/donor.model.js");
 const {
   passwordHash,
   jwt_token,
-  duplicateUserName,
 } = require("../functions/securityFunctions.js");
 
 // postman
@@ -34,6 +33,7 @@ router.route("/add").post(async (req, res) => {
   const recency = Date.parse(req.body.recency);
   const nid = req.body.nid;
 
+  // add user
   try {
     const userNameExists = await Donor.findOne({ name });
     const userEmailExists = await Donor.findOne({ email });
