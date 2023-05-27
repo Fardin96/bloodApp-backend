@@ -21,6 +21,17 @@ const {
 // //   "recency":"12-22-23",
 // //   "nid": "32423492837408327"
 // // }
+// // {
+// //   "name": "farabi",
+// //   "email": "fardinshuvro96@gmail.com",
+// //   "password": "1111",
+// //   "bloodGroup": "O+",
+// //   "contact": "0987655667",
+// //   "address": "badda, dhaka",
+// //   "dob": "12-22-23",
+// //   "recency":"12-22-23",
+// //   "nid": "32423492837408327"
+// // }
 
 router.route('/add').post(async (req, res) => {
   const name = req.body.name;
