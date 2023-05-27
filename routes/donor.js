@@ -85,9 +85,25 @@ router.route("/:id").get((req, res) => {
     });
 });
 
-router.route("/update/:id").post((req, res) => {
-  Donor.findById(req.params.id)
+router.route("/find").post(async (req, res) => {
+  const { email } = req.body;
+  // console.log("req.body.email: ", req.body.email);
+
+  await Donor.findOne({ email })
     .then((donor) => {
+      // console.log("response in backend finding user by email: ", donor);
+      // return donor;
+      res.json(donor);
+    })
+    .catch((err) => {
+      res.status(400).json("Error finding individual donor by email: ", err);
+    });
+});
+
+router.route("/update/:id").post((req, res) => {
+  console.log("Reading from backend - userID: ", req.params.id);
+  Donor.findById(req.params.id)
+    .then(async (donor) => {
       donor.name = req.body.name;
       donor.email = req.body.email;
       donor.password = req.body.password;
@@ -98,7 +114,9 @@ router.route("/update/:id").post((req, res) => {
       donor.recency = Date.parse(req.body.recency);
       donor.nid = req.body.nid;
 
-      donor
+      console.log("user info trying to update with ", donor);
+
+      await donor
         .save()
         .then(() => res.send("Donor info updated!"))
         .catch((err) =>
@@ -106,7 +124,7 @@ router.route("/update/:id").post((req, res) => {
         );
     })
     .catch((err) => {
-      res.status(400).json("Error updating donor info: ", err);
+      res.status(401).json("Error finding and updating donor: ", err);
     });
 });
 
